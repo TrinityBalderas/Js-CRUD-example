@@ -23,6 +23,8 @@ const submitHandler = (e) => {
         lastName: lastName.value 
     }
     createName(body)
+    firstName.value = ""
+    lastName.value = ""
 }
 const createName = (body) => {
     axios.post(`${baseURL}/api/name`, body)
