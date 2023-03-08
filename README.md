@@ -20,13 +20,13 @@ Server: Express, Cors, Axios
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/TrinityBalderas/Js-CRUD-example.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project/server
+  cd Js-CRUD-example/server
 ```
 
 Install dependencies
@@ -38,7 +38,6 @@ Install dependencies
 Start the server
 
 ```bash
-  cd server
   nodemon main.js
 ```
 
