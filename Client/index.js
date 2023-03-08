@@ -5,18 +5,15 @@ const deleteBtn = document.getElementsByTagName("button")
 
 const baseURL = "http://localhost:4004"
 
+let nameArr = new Array()
+
 const getList = () => {
     axios.get(`${baseURL}/api/name`)
     .then(({ data }) => {
-        let name = data
-        list.innerHTML = ''
-        name.forEach(e => {
-            let listHtml = makeItem(e)
-            list.innerHTML += listHtml
-        });
+        nameArr = data
+        displayArr()
     })
 }
-
 const submitHandler = (e) => {
     e.preventDefault()
     const firstName = document.querySelector("#firstName")
@@ -27,30 +24,40 @@ const submitHandler = (e) => {
     }
     createName(body)
 }
-
 const createName = (body) => {
     axios.post(`${baseURL}/api/name`, body)
         .then(({ data }) => {
-            let name = data
-            list.innerHTML += makeItem(name)
+            console.log("blah", JSON.stringify(data.firstName));
+            nameArr.push(data)
+            displayArr()
         })
         .catch(displayError)
 }
 
 const displayError = (err) => {
-    errMsg.innerHTML = `Error message`
+    errMsg.innerText = err
 }
 const deleteName = (e, id) => {
     axios.delete(`${baseURL}/api/name/:${id}`)
-    e.parentElement.remove()
+    nameArr.splice(nameArr.findIndex(e => id === e.id), 1)
+    displayArr()
 }
-
-
-const makeItem = (name) => {
+const displayArr = () => {
+    list.innerHTML = ""
+    console.log("display", nameArr);
+    nameArr.forEach(e => {
+        list.innerHTML += makeItem(e)
+    });
+}
+const editName = (e) => {
+    
+}
+const makeItem = (fullName) => {
     return `
     <li>
-    <p>${name.firstName} ${name.lastName}</p>
-    <button onclick="deleteName(this,${name.id})">Delete</button>
+    <p>${fullName.firstName} ${fullName.lastName}</p>
+    <button onclick="deleteName(this,${fullName.id})">Delete</button>
+    <button onclick="editName(this, ${fullName.id})">Edit</button>
     </li>`
 }
 form.addEventListener('submit', submitHandler)

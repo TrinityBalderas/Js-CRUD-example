@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const NAME = require("./{} db.json")
+const FULLNAME = require("./{} db.json")
 let globalId = 3
 
 const PORT = 4004;
@@ -13,18 +13,18 @@ app.use(cors());
 app.use(express.static('../index'))
 
 app.get(`/api/name`, (req, res) => {
-    res.status(200).send(NAME)
+    res.status(200).send(FULLNAME)
 })
 app.get(`/api/name/:id`, (req, res) => {
-    let index = NAME.findIndex(elem => elem.id === +req.params.id)
+    let index = FULLNAME.findIndex(elem => elem.id === +req.params.id)
     if(index === -1) {
         res.status(404).send("Name doesn't exist")
     }
-    res.status(200).send(NAME[index])
+    res.status(200).send(FULLNAME[index])
 })
 app.post(`/api/name`,(req, res) => {
     let  name = req.body 
-    if(NAME.some(e => e.name === name)){
+    if(FULLNAME.some(e => e.name === name)){
         res.status(400).end()
     } else {
         res.status(200).send(createName(name))
@@ -32,7 +32,7 @@ app.post(`/api/name`,(req, res) => {
 })
 app.put(`/api/name/:id`, (req, res) => {
     const name = req.body
-    let index = NAME.findIndex(elem => elem.id === +req.params.id)
+    let index = FULLNAME.findIndex(elem => elem.id === +req.params.id)
     if(index === -1){
         res.status(404).send("Name doesn exist")
     }
@@ -42,27 +42,27 @@ app.put(`/api/name/:id`, (req, res) => {
     if(!name.firstName || !name.lastName){
         res.status(400).send("Incomplete data")
     }
-    NAME.splice(index, 1)
-    NAME.push(name)
+    FULLNAME.splice(index, 1)
+    FULLNAME.push(name)
     res.status(200).send(name)
 })
 app.patch(`/api/name/:id`, (req, res) => {
     const name = req.body
-    let index = NAME.findIndex(elem => elem.id === +req.params.id)
+    let index = FULLNAME.findIndex(elem => elem.id === +req.params.id)
     if(index === -1){
         res.status(404).send("Name doesn exist")
     }
     if(!name.firstName || !name.firstName){
         res.status(400).send("Incomplete data")
     }
-    NAME.splice(index, 1)
-    NAME.push(name)
+    FULLNAME.splice(index, 1)
+    FULLNAME.push(name)
     res.status(200).send(name)
 })
 app.delete(`/api/name/:id`, (req, res) => {
-    let index = NAME.findIndex(elem => elem.id === +req.params.id)
-    NAME.splice(index, 1)
-    res.status(200).send(NAME)
+    let index = FULLNAME.findIndex(elem => elem.id === +req.params.id)
+    FULLNAME.splice(index, 1)
+    res.status(200).send(FULLNAME)
 })
 
 const createName = (name) => {
@@ -71,8 +71,9 @@ const createName = (name) => {
         firstName: name.firstName,
         lastName: name.lastName
     }
-    NAME.push(newName)
+    FULLNAME.push(newName)
     globalId++
+    return newName
 }
 app.listen(PORT, () => {
     console.log(`we are live....${PORT}`);
