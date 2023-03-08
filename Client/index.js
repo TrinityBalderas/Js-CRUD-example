@@ -52,7 +52,7 @@ const displayArr = () => {
     });
 }
 const editName = (e) => {
-    
+    alert("Work in progress =)")
 }
 const makeItem = (fullName) => {
     return `
