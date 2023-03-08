@@ -3,7 +3,7 @@ const form = document.querySelector("form")
 const list = document.getElementById("ol-list")
 const deleteBtn = document.getElementsByTagName("button")
 
-const baseURL = "http://localhost:4004"
+const baseURL = "http://127.0.0.1:4004"
 
 let nameArr = new Array()
 
