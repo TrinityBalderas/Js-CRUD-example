@@ -38,7 +38,6 @@ Install dependencies
 Start the server
 
 ```bash
-  cd server
   nodemon main.js
 ```
 
